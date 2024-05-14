@@ -7,6 +7,7 @@ import (
 	"strconv"
 
 	"github.com/Rizz-33/book-management-system/pkg/models"
+	"github.com/Rizz-33/book-management-system/pkg/utils"
 	"github.com/gorilla/mux"
 )
 
@@ -33,4 +34,13 @@ func GetBookById(w http.ResponseWriter, r *http.Request) {
 	w.Write(res)
 }
 
+func CreateBook(w http.ResponseWriter, r *http.Request) {
+	CreateBook := &models.Book{}
+	utils.ParseBody(r, CreateBook)
+	b := CreateBook.CreateBook()
+	res, _ := json.Marshal(b)
+	w.Header().Set("Content-Type", "application/json")
+	w.WriteHeader(http.StatusOK)
+	w.Write(res)
+}
 
