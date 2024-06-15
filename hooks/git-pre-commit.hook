@@ -1,0 +1,23 @@
+#!/bin/sh
+# A sample pre-commit hook script
+
+# Check for any unstaged changes
+if ! git diff --quiet
+then
+    echo "You have unstaged changes. Please stage them before committing."
+    exit 1
+fi
+
+# Run a linter
+golint ./...
+
+# Check if the linter passed
+if [ $? -ne 0 ]
+then
+    echo "Linter errors detected. Please fix them before committing."
+    exit 1
+fi
+
+echo "Pre-commit checks passed."
+exit 0
+
